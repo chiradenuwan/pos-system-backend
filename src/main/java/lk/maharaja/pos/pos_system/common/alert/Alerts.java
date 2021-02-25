@@ -11,4 +11,6 @@ public interface Alerts {
     String removeFailed = "Remove Failed!";
     String backendError = "Something went wrong!";
     String usernameInUse = "Username is in use!";
+    String nosuchfound = "Record Not Found!";
+    String okcustomer = "OK!";
 }

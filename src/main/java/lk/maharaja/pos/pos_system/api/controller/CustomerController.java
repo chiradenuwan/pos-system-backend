@@ -16,6 +16,7 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    //Add New Customer
     @PostMapping(value = "/save", consumes = {"application/json"}, produces = "application/json")
     public ResponseEntity<StandardResponse> save(@RequestBody CustomerRequestDTO customerRequestDTO) {
         try {
@@ -28,4 +29,55 @@ public class CustomerController {
         }
     }
 
+    // Update Customer
+    @PutMapping(value = "/update/{customerId}", consumes = {"application/json"}, produces = "application/json")
+    public ResponseEntity<StandardResponse> save(@RequestBody CustomerRequestDTO customerRequestDTO, @PathVariable int customerId) {
+        try {
+            StandardResponse standardResponse = customerService.update(customerRequestDTO, customerId);
+            System.out.println(standardResponse);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        }
+    }
+
+    //Get All Customer
+    @GetMapping(value = "/getAll")
+    public ResponseEntity<StandardResponse> getCustomer() {
+        try {
+            StandardResponse standardResponse = customerService.getAllCustomers();
+            System.out.println(standardResponse);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        }
+    }
+
+    //Get All Customer By CustomerId
+    @GetMapping(value = "/getCustomer/{customerId}")
+    public ResponseEntity<StandardResponse> getCustomer(@PathVariable int customerId) {
+        try {
+            StandardResponse standardResponse = customerService.getCustomerById(customerId);
+            System.out.println(standardResponse);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        }
+    }
+
+    //Delete Customer By CustomerId
+    @DeleteMapping(value = "/deleteCustomer/{customerId}")
+    public ResponseEntity<StandardResponse> deleteCustomer(@PathVariable int customerId) {
+        try {
+            StandardResponse standardResponse = customerService.deleteCustomer(customerId);
+            System.out.println(standardResponse);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        }
+    }
 }

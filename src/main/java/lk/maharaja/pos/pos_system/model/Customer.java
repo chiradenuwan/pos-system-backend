@@ -26,6 +26,13 @@ public class Customer {
         this.address = address;
     }
 
+    public Customer(int id, String name, String mobile, String address) {
+        this.id = id;
+        this.name = name;
+        this.mobile = mobile;
+        this.address = address;
+    }
+
     public Customer(int id, String name, String mobile, String address, List<Orders> orders) {
         this.id = id;
         this.name = name;
