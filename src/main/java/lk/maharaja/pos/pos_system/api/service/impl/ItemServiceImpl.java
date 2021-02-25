@@ -4,7 +4,6 @@ import lk.maharaja.pos.pos_system.api.dao.ItemRepository;
 import lk.maharaja.pos.pos_system.api.dto.ItemRequestDTO;
 import lk.maharaja.pos.pos_system.api.service.ItemService;
 import lk.maharaja.pos.pos_system.common.alert.Alerts;
-import lk.maharaja.pos.pos_system.model.Customer;
 import lk.maharaja.pos.pos_system.model.Item;
 import lk.maharaja.pos.pos_system.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +56,11 @@ public class ItemServiceImpl implements ItemService {
         } else {
             return new StandardResponse(201, Alerts.saveFailed, null);
         }
+    }
+
+    @Override
+    public StandardResponse getAllItems() {
+        Iterable<Item> all = itemRepository.findAll();
+        return new StandardResponse(200, Alerts.okcustomer, all);
     }
 }

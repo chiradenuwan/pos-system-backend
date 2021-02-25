@@ -7,4 +7,7 @@ public interface ItemService {
     StandardResponse save(ItemRequestDTO itemDto);
 
     StandardResponse update(ItemRequestDTO itemDto, int itemId);
+
+    StandardResponse getAllItems();
+
 }

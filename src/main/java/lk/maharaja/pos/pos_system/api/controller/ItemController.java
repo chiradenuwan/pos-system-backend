@@ -42,4 +42,17 @@ public class ItemController {
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         }
     }
+
+    //Get All Items
+    @GetMapping(value = "/getAll")
+    public ResponseEntity<StandardResponse> getAllItems() {
+        try {
+            StandardResponse standardResponse = itemService.getAllItems();
+            System.out.println(standardResponse);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        }
+    }
 }
