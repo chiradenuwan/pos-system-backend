@@ -68,4 +68,17 @@ public class ItemController {
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         }
     }
+
+    //Delete Item By ItemId
+    @DeleteMapping(value = "/deleteItem/{itemId}")
+    public ResponseEntity<StandardResponse> deleteCustomer(@PathVariable int itemId) {
+        try {
+            StandardResponse standardResponse = itemService.deleteItem(itemId);
+            System.out.println(standardResponse);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        }
+    }
 }

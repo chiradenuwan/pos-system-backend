@@ -76,4 +76,16 @@ public class ItemServiceImpl implements ItemService {
             return new StandardResponse(200, Alerts.nosuchfound, allById);
         }
     }
+
+    @Override
+    public StandardResponse deleteItem(int itemId) {
+        Optional<Item> byId = itemRepository.findById(itemId);
+        System.out.println(byId.isPresent());
+        if (!byId.isPresent()) {
+            return new StandardResponse(201, Alerts.nosuchfound, null);
+        }else{
+            itemRepository.deleteById(itemId);
+            return new StandardResponse(200, Alerts.removeSuccess, itemRepository.findAll());
+        }
+    }
 }

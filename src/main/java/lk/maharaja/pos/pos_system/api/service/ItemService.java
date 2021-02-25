@@ -11,4 +11,6 @@ public interface ItemService {
     StandardResponse getAllItems();
 
     StandardResponse getItemsByItemId(int itemId);
+
+    StandardResponse deleteItem(int itemId);
 }
