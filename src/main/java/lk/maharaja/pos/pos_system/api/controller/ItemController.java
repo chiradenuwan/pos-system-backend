@@ -55,4 +55,17 @@ public class ItemController {
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         }
     }
+
+    //Get All Item By ItemId
+    @GetMapping(value = "/getItems/{itemId}")
+    public ResponseEntity<StandardResponse> getCustomer(@PathVariable int itemId) {
+        try {
+            StandardResponse standardResponse = itemService.getItemsByItemId(itemId);
+            System.out.println(standardResponse);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        }
+    }
 }

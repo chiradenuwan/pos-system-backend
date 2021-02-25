@@ -10,4 +10,5 @@ public interface ItemService {
 
     StandardResponse getAllItems();
 
+    StandardResponse getItemsByItemId(int itemId);
 }

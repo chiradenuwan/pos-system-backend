@@ -4,12 +4,14 @@ import lk.maharaja.pos.pos_system.api.dao.ItemRepository;
 import lk.maharaja.pos.pos_system.api.dto.ItemRequestDTO;
 import lk.maharaja.pos.pos_system.api.service.ItemService;
 import lk.maharaja.pos.pos_system.common.alert.Alerts;
+import lk.maharaja.pos.pos_system.model.Customer;
 import lk.maharaja.pos.pos_system.model.Item;
 import lk.maharaja.pos.pos_system.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.Optional;
 
 @Transactional
@@ -62,5 +64,16 @@ public class ItemServiceImpl implements ItemService {
     public StandardResponse getAllItems() {
         Iterable<Item> all = itemRepository.findAll();
         return new StandardResponse(200, Alerts.okcustomer, all);
+    }
+
+    @Override
+    public StandardResponse getItemsByItemId(int itemId) {
+        Iterable<Item> allById = itemRepository.findAllById(Collections.singleton(itemId));
+        System.out.println(allById.spliterator().estimateSize());
+        if (allById.spliterator().estimateSize()!=0){
+            return new StandardResponse(200, Alerts.okcustomer, allById);
+        }else{
+            return new StandardResponse(200, Alerts.nosuchfound, allById);
+        }
     }
 }
