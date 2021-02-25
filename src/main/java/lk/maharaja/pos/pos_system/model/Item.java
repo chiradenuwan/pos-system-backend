@@ -17,6 +17,12 @@ public class Item {
     public Item() {
     }
 
+    public Item(String name, double qty, double unit_price) {
+        this.name = name;
+        this.qty = qty;
+        this.unit_price = unit_price;
+    }
+
     public Item(int id, String name, double qty, double unit_price, List<OrderData> orderData) {
         this.id = id;
         this.name = name;
