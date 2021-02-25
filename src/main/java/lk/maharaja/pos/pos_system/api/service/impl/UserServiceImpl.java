@@ -1,8 +1,11 @@
 package lk.maharaja.pos.pos_system.api.service.impl;
 
 import lk.maharaja.pos.pos_system.api.dao.UserRepository;
+import lk.maharaja.pos.pos_system.api.dto.UserDto;
 import lk.maharaja.pos.pos_system.api.service.UserService;
+import lk.maharaja.pos.pos_system.common.alert.Alerts;
 import lk.maharaja.pos.pos_system.model.User;
+import lk.maharaja.pos.pos_system.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,8 +20,10 @@ import java.util.Collections;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService, UserDetailsService {
+
     @Autowired
     private UserRepository userRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_USER");
@@ -30,5 +35,31 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         } else {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
+    }
+
+    @Override
+    public User loadUsernameAndPassword(String username) {
+        return userRepository.getUserByUsername(username);
+    }
+
+    @Override
+    public StandardResponse save(UserDto userDto) {
+        User user = new User(
+                userDto.getName(), userDto.getUsername(), userDto.getPassword()
+        );
+        int user1 = userRepository.countUserByUsername(userDto.getUsername());
+        if (user1 == 0) {
+            User save = userRepository.save(user);
+            System.out.println(save);
+            if (save != null) {
+                return new StandardResponse(200, Alerts.registerSuccess, save);
+            } else {
+                return new StandardResponse(201, Alerts.registerFailed, null);
+            }
+        } else {
+            return new StandardResponse(201, Alerts.usernameInUse, null);
+        }
+
+
     }
 }

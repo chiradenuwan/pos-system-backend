@@ -1,40 +1,22 @@
-package lk.maharaja.pos.pos_system.model;
+package lk.maharaja.pos.pos_system.api.dto;
 
-import javax.persistence.*;
-
-@Entity
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class UserDto {
     private String name;
-    @Column(unique = true)
     private String username;
-    private String  password;
+    private String password;
 
-    public User() {
+    public UserDto() {
     }
 
-    public User(String name, String username, String password) {
-        this.name = name;
+    public UserDto(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public User(int id, String name, String username, String password) {
-        this.id = id;
+    public UserDto(String name, String username, String password) {
         this.name = name;
         this.username = username;
         this.password = password;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -63,9 +45,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+        return "UserDto{" +
+                "name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
