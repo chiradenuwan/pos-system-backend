@@ -30,4 +30,16 @@ public class ItemController {
         }
     }
 
+    //Update Item byId
+    @PutMapping(value = "/update/{itemId}", consumes = {"application/json"}, produces = "application/json")
+    public ResponseEntity<StandardResponse> update(@RequestBody ItemRequestDTO itemDto,@PathVariable int itemId) {
+        try {
+            StandardResponse standardResponse = itemService.update(itemDto,itemId);
+            System.out.println(standardResponse);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        }
+    }
 }
