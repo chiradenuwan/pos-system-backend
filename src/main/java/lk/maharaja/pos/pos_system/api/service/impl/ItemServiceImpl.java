@@ -2,16 +2,16 @@ package lk.maharaja.pos.pos_system.api.service.impl;
 
 import lk.maharaja.pos.pos_system.api.dao.ItemRepository;
 import lk.maharaja.pos.pos_system.api.dto.ItemRequestDTO;
+import lk.maharaja.pos.pos_system.api.dto.ItemResponseDTO;
 import lk.maharaja.pos.pos_system.api.service.ItemService;
 import lk.maharaja.pos.pos_system.common.alert.Alerts;
-import lk.maharaja.pos.pos_system.model.Customer;
 import lk.maharaja.pos.pos_system.model.Item;
 import lk.maharaja.pos.pos_system.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,17 +64,32 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public StandardResponse getAllItems() {
         List<Item> all = (List<Item>) itemRepository.findAll();
-        return new StandardResponse(200, Alerts.okcustomer, all);
+        ArrayList<ItemResponseDTO> itemResponseDTOS = new ArrayList<>();
+        for (int i = 0; i < all.size(); i++) {
+            itemResponseDTOS.add(new ItemResponseDTO(
+                    all.get(i).getId(),
+                    all.get(i).getName(),
+                    all.get(i).getQty(),
+                    all.get(i).getUnit_price()
+            ));
+        }
+        return new StandardResponse(200, Alerts.ok, itemResponseDTOS);
     }
 
     @Override
     public StandardResponse getItemsByItemId(int itemId) {
-        Iterable<Item> allById = itemRepository.findAllById(Collections.singleton(itemId));
-        System.out.println(allById.spliterator().estimateSize());
-        if (allById.spliterator().estimateSize()!=0){
-            return new StandardResponse(200, Alerts.okcustomer, allById);
-        }else{
-            return new StandardResponse(200, Alerts.nosuchfound, allById);
+        Optional<Item> allById = itemRepository.findById(itemId);
+
+        System.out.println(allById.isPresent());
+        if (allById.isPresent()) {
+            ItemResponseDTO itemResponseDTO = new ItemResponseDTO(
+                    allById.get().getId(),
+                    allById.get().getName(),
+                    allById.get().getQty(),
+                    allById.get().getUnit_price());
+            return new StandardResponse(200, Alerts.ok, itemResponseDTO);
+        } else {
+            return new StandardResponse(200, Alerts.nosuchfound, null);
         }
     }
 
@@ -84,7 +99,7 @@ public class ItemServiceImpl implements ItemService {
         System.out.println(byId.isPresent());
         if (!byId.isPresent()) {
             return new StandardResponse(201, Alerts.nosuchfound, null);
-        }else{
+        } else {
             itemRepository.deleteById(itemId);
             return new StandardResponse(200, Alerts.removeSuccess, itemRepository.findAll());
         }

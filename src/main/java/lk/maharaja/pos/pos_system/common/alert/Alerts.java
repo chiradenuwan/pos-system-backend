@@ -12,5 +12,5 @@ public interface Alerts {
     String backendError = "Something went wrong!";
     String usernameInUse = "Username is in use!";
     String nosuchfound = "Record Not Found!";
-    String okcustomer = "OK!";
+    String ok = "OK!";
 }

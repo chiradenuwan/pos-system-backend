@@ -83,7 +83,7 @@ public class CustomerServiceImpl implements CustomerService {
                     orderResponseDTO
             ));
         }
-        return new StandardResponse(200, Alerts.okcustomer, customerReponseDTOS);
+        return new StandardResponse(200, Alerts.ok, customerReponseDTOS);
 
     }
 
@@ -150,7 +150,7 @@ public class CustomerServiceImpl implements CustomerService {
                     allById.get().getAddress(),
                     orderResponseDTO
             ));
-            return new StandardResponse(200, Alerts.okcustomer, customerReponseDTOS);
+            return new StandardResponse(200, Alerts.ok, customerReponseDTOS);
         } else {
             return new StandardResponse(200, Alerts.nosuchfound, null);
         }
