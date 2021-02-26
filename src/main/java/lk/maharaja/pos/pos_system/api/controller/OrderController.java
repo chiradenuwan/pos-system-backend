@@ -1,6 +1,5 @@
 package lk.maharaja.pos.pos_system.api.controller;
 
-import lk.maharaja.pos.pos_system.api.dto.CustomerRequestDTO;
 import lk.maharaja.pos.pos_system.api.dto.OrderRequestDTO;
 import lk.maharaja.pos.pos_system.api.service.OrderService;
 import lk.maharaja.pos.pos_system.util.StandardResponse;
@@ -38,6 +37,19 @@ public class OrderController {
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
+            StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        }
+    }
+
+    //Get All Orders By OrderId
+    @GetMapping(value = "/getOrders/{orderId}")
+    public ResponseEntity<StandardResponse> getOrders(@PathVariable int orderId) {
+        try {
+            StandardResponse standardResponse = orderService.getOrderByOrderId(orderId);
+            System.out.println("standardResponse : " + standardResponse);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        } catch (Exception e) {
             StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         }

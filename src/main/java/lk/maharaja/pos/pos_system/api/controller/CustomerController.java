@@ -59,8 +59,7 @@ public class CustomerController {
     //Get All Customer By CustomerId
     @GetMapping(value = "/getCustomer/{customerId}")
     public ResponseEntity<StandardResponse> getCustomer(@PathVariable int customerId) {
-        System.out.println("Afoooooo");
-        try {
+         try {
             StandardResponse standardResponse = customerService.getCustomerById(customerId);
             System.out.println("standardResponse : "+standardResponse);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);

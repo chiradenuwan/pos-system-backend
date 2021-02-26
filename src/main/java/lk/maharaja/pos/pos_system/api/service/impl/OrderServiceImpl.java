@@ -102,6 +102,38 @@ public class OrderServiceImpl implements OrderService {
         return new StandardResponse(200, Alerts.ok, orderResponseDTOS);
     }
 
+    @Override
+    public StandardResponse getOrderByOrderId(int orderId) {
+        Optional<Orders> allById = orderRepository.findById(orderId);
+        System.out.println("allByIdById : " + allById);
+        ArrayList<OrderResponseDTO> orderResponseDTOS = new ArrayList<>();
+
+        System.out.println("i : " + allById);
+
+
+        System.out.println("allByIdById : " + allById);
+        System.out.println(allById.isPresent());
+        if (allById.isPresent()) {
+            List<OrderDataReponseDTO> orderDataReponse = null;
+            if (allById.get().getOrderData().size() > 0) {
+                orderDataReponse = getOrderDataDetails(allById.get().getOrderData());
+            }
+
+            System.out.println("orderResponseDTO : " + orderDataReponse);
+            orderResponseDTOS.add(new OrderResponseDTO(
+                    allById.get().getId(),
+                    allById.get().getDate(),
+                    allById.get().getTotalAmount(),
+                    allById.get().getTotalDiscount(),
+                    orderDataReponse
+            ));
+            return new StandardResponse(200, Alerts.ok, orderResponseDTOS);
+        } else {
+            return new StandardResponse(200, Alerts.nosuchfound, null);
+        }
+    }
+
+
     private List<OrderDataReponseDTO> getOrderDataDetails(List<OrderData> orderData) {
         ArrayList<OrderDataReponseDTO> orderDataReponseDTOS = new ArrayList<>();
         System.out.println("Order Data arry : " + orderData);

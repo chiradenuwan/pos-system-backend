@@ -8,4 +8,6 @@ public interface OrderService {
 
     StandardResponse getAllOrders();
 
-}
+    StandardResponse getOrderByOrderId(int orderId);
+
+ }
