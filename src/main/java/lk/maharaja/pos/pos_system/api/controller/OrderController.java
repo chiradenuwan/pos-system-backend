@@ -28,4 +28,18 @@ public class OrderController {
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         }
     }
+
+    //Get All Orders
+    @GetMapping(value = "/getAll")
+    public ResponseEntity<StandardResponse> getCustomer() {
+        try {
+            StandardResponse standardResponse = orderService.getAllOrders();
+            System.out.println(standardResponse);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        }
+    }
 }

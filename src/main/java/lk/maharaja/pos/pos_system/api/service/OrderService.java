@@ -5,4 +5,7 @@ import lk.maharaja.pos.pos_system.util.StandardResponse;
 
 public interface OrderService {
     StandardResponse save(OrderRequestDTO orderRequestDTO);
+
+    StandardResponse getAllOrders();
+
 }

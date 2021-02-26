@@ -44,17 +44,15 @@ public class CustomerController {
 
     //Get All Customer
     @GetMapping(value = "/getAll")
-    public StandardResponse getCustomer() {
+    public ResponseEntity<StandardResponse> getCustomer() {
         try {
             StandardResponse standardResponse = customerService.getAllCustomers();
             System.out.println(standardResponse);
-            return standardResponse;
-//            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
-//            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
-            return standardResponse;
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         }
     }
 
