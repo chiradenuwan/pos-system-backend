@@ -17,6 +17,10 @@ public class Item {
     public Item() {
     }
 
+    public Item(int id) {
+        this.id = id;
+    }
+
     public Item(String name, double qty, double unit_price) {
         this.name = name;
         this.qty = qty;
@@ -85,7 +89,6 @@ public class Item {
                 ", name='" + name + '\'' +
                 ", qty=" + qty +
                 ", unit_price=" + unit_price +
-                ", orderData=" + orderData +
                 '}';
     }
 }

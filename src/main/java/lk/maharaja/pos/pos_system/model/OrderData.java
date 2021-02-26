@@ -21,6 +21,14 @@ public class OrderData {
     public OrderData() {
     }
 
+    public OrderData(double sub_total, double unit_price, double qty, Orders orders, Item item) {
+        this.sub_total = sub_total;
+        this.unit_price = unit_price;
+        this.qty = qty;
+        this.orders = orders;
+        this.item = item;
+    }
+
     public OrderData(int id, double sub_total, double unit_price, double qty, Orders orders, Item item) {
         this.id = id;
         this.sub_total = sub_total;
@@ -85,6 +93,7 @@ public class OrderData {
                 ", sub_total=" + sub_total +
                 ", unit_price=" + unit_price +
                 ", qty=" + qty +
+                ", item=" + item +
                 '}';
     }
 }

@@ -1,22 +1,16 @@
 package lk.maharaja.pos.pos_system.api.dto;
 
-public class ItemRequestDTO {
+public class ItemResponseDTO {
     private int id;
     private String name;
     private double qty;
     private double unit_price;
 
-    public ItemRequestDTO() {
+    public ItemResponseDTO() {
     }
 
-    public ItemRequestDTO(int id, String name, double qty, double unit_price) {
+    public ItemResponseDTO(int id, String name, double qty, double unit_price) {
         this.id = id;
-        this.name = name;
-        this.qty = qty;
-        this.unit_price = unit_price;
-    }
-
-    public ItemRequestDTO(String name, double qty, double unit_price) {
         this.name = name;
         this.qty = qty;
         this.unit_price = unit_price;
@@ -24,7 +18,7 @@ public class ItemRequestDTO {
 
     @Override
     public String toString() {
-        return "ItemRequestDTO{" +
+        return "ItemResponseDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", qty=" + qty +

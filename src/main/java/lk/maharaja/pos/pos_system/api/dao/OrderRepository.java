@@ -1,4 +1,7 @@
 package lk.maharaja.pos.pos_system.api.dao;
 
-public interface OrderRepository {
+import lk.maharaja.pos.pos_system.model.Orders;
+import org.springframework.data.repository.CrudRepository;
+
+public interface OrderRepository extends CrudRepository<Orders,Integer> {
 }

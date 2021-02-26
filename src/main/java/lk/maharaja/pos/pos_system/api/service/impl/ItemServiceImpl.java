@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -62,7 +63,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public StandardResponse getAllItems() {
-        Iterable<Item> all = itemRepository.findAll();
+        List<Item> all = (List<Item>) itemRepository.findAll();
         return new StandardResponse(200, Alerts.okcustomer, all);
     }
 

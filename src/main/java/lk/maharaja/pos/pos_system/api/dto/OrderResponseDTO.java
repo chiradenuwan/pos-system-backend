@@ -1,44 +1,25 @@
-package lk.maharaja.pos.pos_system.model;
+package lk.maharaja.pos.pos_system.api.dto;
 
+import lk.maharaja.pos.pos_system.model.OrderData;
 
-import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 
-@Entity
-public class Orders {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class OrderResponseDTO {
     private int id;
     private Date date;
     private double totalAmount;
     private double totalDiscount;
-    @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    private Customer customer;
-    @OneToMany(mappedBy = "orders")
-    private List<OrderData> orderData;
+    private List<OrderDataReponseDTO> orderData;
 
-    public Orders() {
+    public OrderResponseDTO() {
     }
 
-    public Orders(int id) {
-        this.id = id;
-    }
-
-    public Orders(Date date, double totalAmount, double totalDiscount, Customer customer) {
-        this.date = date;
-        this.totalAmount = totalAmount;
-        this.totalDiscount = totalDiscount;
-        this.customer = customer;
-    }
-
-    public Orders(int id, Date date, double totalAmount, double totalDiscount, Customer customer, List<OrderData> orderData) {
+    public OrderResponseDTO(int id, Date date, double totalAmount, double totalDiscount, List<OrderDataReponseDTO> orderData) {
         this.id = id;
         this.date = date;
         this.totalAmount = totalAmount;
         this.totalDiscount = totalDiscount;
-        this.customer = customer;
         this.orderData = orderData;
     }
 
@@ -74,34 +55,17 @@ public class Orders {
         this.totalDiscount = totalDiscount;
     }
 
-    public Customer getCustomer_id() {
-        return customer;
-    }
-
-    public void setCustomer_id(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-
-    public List<OrderData> getOrderData() {
+    public List<OrderDataReponseDTO> getOrderData() {
         return orderData;
     }
 
-    public void setOrderData(List<OrderData> orderData) {
+    public void setOrderData(List<OrderDataReponseDTO> orderData) {
         this.orderData = orderData;
     }
 
     @Override
     public String toString() {
-        return "Orders{" +
+        return "OrderResponseDTO{" +
                 "id=" + id +
                 ", date=" + date +
                 ", totalAmount=" + totalAmount +

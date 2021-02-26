@@ -1,36 +1,20 @@
-package lk.maharaja.pos.pos_system.model;
+package lk.maharaja.pos.pos_system.api.dto;
 
-import javax.persistence.*;
+import lk.maharaja.pos.pos_system.model.Orders;
+
 import java.util.List;
 
-@Entity
-public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CustomerReponseDTO {
     private int id;
     private String name;
     private String mobile;
     private String address;
-    @OneToMany(mappedBy = "customer")
-    private List<Orders> orders;
+    private List<OrderResponseDTO> orders;
 
-    public Customer() {
+    public CustomerReponseDTO() {
     }
 
-    public Customer(String name, String mobile, String address) {
-        this.name = name;
-        this.mobile = mobile;
-        this.address = address;
-    }
-
-    public Customer(int id, String name, String mobile, String address) {
-        this.id = id;
-        this.name = name;
-        this.mobile = mobile;
-        this.address = address;
-    }
-
-    public Customer(int id, String name, String mobile, String address, List<Orders> orders) {
+    public CustomerReponseDTO(int id, String name, String mobile, String address, List<OrderResponseDTO> orders) {
         this.id = id;
         this.name = name;
         this.mobile = mobile;
@@ -70,17 +54,17 @@ public class Customer {
         this.address = address;
     }
 
-    public List<Orders> getOrders() {
+    public List<OrderResponseDTO> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Orders> orders) {
+    public void setOrders(List<OrderResponseDTO> orders) {
         this.orders = orders;
     }
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "CustomerReponseDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", mobile='" + mobile + '\'' +
