@@ -14,6 +14,13 @@ public class CustomerReponseDTO {
     public CustomerReponseDTO() {
     }
 
+    public CustomerReponseDTO(int id, String name, String mobile, String address) {
+        this.id = id;
+        this.name = name;
+        this.mobile = mobile;
+        this.address = address;
+    }
+
     public CustomerReponseDTO(int id, String name, String mobile, String address, List<OrderResponseDTO> orders) {
         this.id = id;
         this.name = name;

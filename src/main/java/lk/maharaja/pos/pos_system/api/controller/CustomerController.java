@@ -56,6 +56,19 @@ public class CustomerController {
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         }
     }
+    //Get All Customer
+    @GetMapping(value = "/customerdetails")
+    public ResponseEntity<StandardResponse> getAllCustomerDetails() {
+        try {
+            StandardResponse standardResponse = customerService.getAllCustomerDetails();
+            System.out.println(standardResponse);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
+            return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
+        }
+    }
 
     //Get All Customer By CustomerId
     @GetMapping(value = "/getCustomer/{customerId}")

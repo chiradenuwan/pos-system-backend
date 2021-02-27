@@ -13,4 +13,7 @@ public interface CustomerService {
     StandardResponse getCustomerById(int customerId);
 
     StandardResponse deleteCustomer(int customerId);
+
+    StandardResponse getAllCustomerDetails();
+
 }

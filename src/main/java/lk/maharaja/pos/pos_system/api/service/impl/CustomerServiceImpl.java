@@ -168,4 +168,20 @@ public class CustomerServiceImpl implements CustomerService {
             return new StandardResponse(200, Alerts.removeSuccess, null);
         }
     }
+
+    @Override
+    public StandardResponse getAllCustomerDetails() {
+        List<Customer> all = (List<Customer>) customerRepository.findAll();
+        System.out.println(all);
+        ArrayList<CustomerReponseDTO> customerReponseDTOS = new ArrayList<>();
+        for (int i = 0; i < all.size(); i++) {
+            customerReponseDTOS.add(new CustomerReponseDTO(
+                    all.get(i).getId(),
+                    all.get(i).getName(),
+                    all.get(i).getMobile(),
+                    all.get(i).getAddress()
+            ));
+        }
+        return new StandardResponse(200, Alerts.ok, customerReponseDTOS);
+    }
 }
