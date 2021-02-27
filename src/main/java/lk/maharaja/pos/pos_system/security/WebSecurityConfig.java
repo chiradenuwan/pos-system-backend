@@ -1,5 +1,6 @@
 package lk.maharaja.pos.pos_system.security;
 
+
 import lk.maharaja.pos.pos_system.filter.JwtRequestFilter;
 import lk.maharaja.pos.pos_system.util.JwtAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -53,24 +57,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         // We don't need CSRF for this example
+        httpSecurity.cors().and();
+//        httpSecurity.cors().disable();
+//        httpSecurity.cors().
         httpSecurity.csrf().disable()
-                // dont authenticate this particular request
+//        httpSecurity.csrf().disable().cors().disable()
+//                // dont authenticate this particular request
                 .authorizeRequests().antMatchers("/api/v1/signIn/login").permitAll()
                 .antMatchers("/api/v1/signIn/register").permitAll()
-
-                // for swagger-ui documentation
-                .antMatchers("/v2/api-docs").permitAll()
+//                // for swagger-ui documentation
                 .antMatchers("/swagger-ui.html/**").permitAll()
-                .antMatchers("/webjars/**").permitAll()
-                .antMatchers("/swagger-resources/**").permitAll()
-                // all other requests need to be authenticated
-                .anyRequest().authenticated().and().
-                // make sure we use stateless session; session won't be used to
-                // store user's state.
-                        exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//                .antMatchers("/webjars/**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll();
+//                // all other requests need to be authenticated
+//                .anyRequest().authenticated().and().
+//                // make sure we use stateless session; session won't be used to
+//                // store user's state.
+//                        exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // Add a filter to validate the tokens with every request
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/v1/**").allowedMethods("*");
+    }
+
 }
+

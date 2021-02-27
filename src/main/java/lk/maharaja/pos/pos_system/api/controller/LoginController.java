@@ -1,5 +1,6 @@
 package lk.maharaja.pos.pos_system.api.controller;
 
+import com.github.shamithachandrasena.security.services.AuthenticationService;
 import lk.maharaja.pos.pos_system.api.dto.UserDto;
 import lk.maharaja.pos.pos_system.api.service.UserService;
 import lk.maharaja.pos.pos_system.model.User;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/signIn")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 public class LoginController {
 
     @Autowired
@@ -35,7 +36,8 @@ public class LoginController {
             authenticate(userDto.getUsername(), userDto.getPassword());
             User user = userService.loadUsernameAndPassword(userDto.getUsername());
             String token = jwtTokenUtil.generateToken(user);
-            StandardResponse standardResponse = new StandardResponse(200, token, null);
+
+            StandardResponse standardResponse = new StandardResponse(200, token, new User(user.getId(), user.getName(), user.getUsername()));
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             StandardResponse standardResponse = new StandardResponse(401, "INVALID_CREDENTIALS", null);

@@ -4,13 +4,13 @@ import lk.maharaja.pos.pos_system.api.dto.OrderRequestDTO;
 import lk.maharaja.pos.pos_system.api.service.OrderService;
 import lk.maharaja.pos.pos_system.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/orders")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 public class OrderController {
     @Autowired
     private OrderService orderService;

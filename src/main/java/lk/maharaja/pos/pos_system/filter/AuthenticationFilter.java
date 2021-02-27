@@ -29,14 +29,15 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
 
         String token = httpServletRequest.getHeader("Authorization");
-
+        System.out.println("up token : " + token);
         if (token != null && token.startsWith("Bearer")) {
 
             token = token.substring(7);
             System.out.println("token : "+token);
 
+//            String username = jwtTokenUtil.getUsernameFromToken(token);
             String username = jwtTokenUtil.getUsernameFromToken(token);
-
+            System.out.println("user name : "+username);
             User user = null;
             try {
                 user = userRepository.getUserByUsername(username);
