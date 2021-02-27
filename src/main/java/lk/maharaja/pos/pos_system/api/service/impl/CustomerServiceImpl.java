@@ -159,12 +159,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public StandardResponse deleteCustomer(int customerId) {
         Optional<Customer> byId = customerRepository.findById(customerId);
+        System.out.println("customer by id :" + byId);
         System.out.println(byId.isPresent());
         if (!byId.isPresent()) {
             return new StandardResponse(201, Alerts.nosuchfound, null);
         } else {
-            customerRepository.deleteById(customerId);
-            return new StandardResponse(200, Alerts.removeSuccess, customerRepository.findAll());
+            customerRepository.delete(byId.get());
+            return new StandardResponse(200, Alerts.removeSuccess, null);
         }
     }
 }

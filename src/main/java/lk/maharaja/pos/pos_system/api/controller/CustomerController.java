@@ -4,13 +4,14 @@ import lk.maharaja.pos.pos_system.api.dto.CustomerRequestDTO;
 import lk.maharaja.pos.pos_system.api.service.CustomerService;
 import lk.maharaja.pos.pos_system.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/customer")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 public class CustomerController {
 
     @Autowired
