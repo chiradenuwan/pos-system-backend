@@ -6,21 +6,23 @@ import lk.maharaja.pos.pos_system.api.dto.ItemRequestDTO;
 import lk.maharaja.pos.pos_system.api.service.ItemService;
 import lk.maharaja.pos.pos_system.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/item")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 public class ItemController {
     @Autowired
     private ItemService itemService;
 
     //Add New Item
-    @PostMapping(value = "/save", consumes = {"application/json"}, produces = "application/json")
+    @PostMapping(value = "/save", consumes = {"application/json"})
     public ResponseEntity<StandardResponse> save(@RequestBody ItemRequestDTO itemDto) {
         try {
+            System.out.println("itemDto : "+itemDto);
             StandardResponse standardResponse = itemService.save(itemDto);
             System.out.println(standardResponse);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
@@ -46,6 +48,7 @@ public class ItemController {
     //Get All Items
     @GetMapping(value = "/getAll")
     public ResponseEntity<StandardResponse> getAllItems() {
+        System.out.println("call getall");
         try {
             StandardResponse standardResponse = itemService.getAllItems();
             System.out.println(standardResponse);
@@ -72,6 +75,7 @@ public class ItemController {
     //Delete Item By ItemId
     @DeleteMapping(value = "/deleteItem/{itemId}")
     public ResponseEntity<StandardResponse> deleteCustomer(@PathVariable int itemId) {
+        System.out.println(itemId);
         try {
             StandardResponse standardResponse = itemService.deleteItem(itemId);
             System.out.println(standardResponse);

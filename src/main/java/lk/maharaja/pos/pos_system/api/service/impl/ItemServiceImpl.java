@@ -55,9 +55,9 @@ public class ItemServiceImpl implements ItemService {
         Item update = itemRepository.save(item);
         System.out.println(update);
         if (update != null) {
-            return new StandardResponse(200, Alerts.saveSuccess, update);
+            return new StandardResponse(200, Alerts.updateSuccess, update);
         } else {
-            return new StandardResponse(201, Alerts.saveFailed, null);
+            return new StandardResponse(201, Alerts.updateFailed, null);
         }
     }
 
@@ -96,12 +96,14 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public StandardResponse deleteItem(int itemId) {
         Optional<Item> byId = itemRepository.findById(itemId);
+        System.out.println("byId : " + byId);
+        System.out.println("byId : " + byId.get());
         System.out.println(byId.isPresent());
         if (!byId.isPresent()) {
             return new StandardResponse(201, Alerts.nosuchfound, null);
         } else {
-            itemRepository.deleteById(itemId);
-            return new StandardResponse(200, Alerts.removeSuccess, itemRepository.findAll());
+            itemRepository.delete(byId.get());
+            return new StandardResponse(200, Alerts.removeSuccess, null);
         }
     }
 }
