@@ -20,7 +20,6 @@ public class OrderController {
     public ResponseEntity<StandardResponse> save(@RequestBody OrderRequestDTO orderRequestDTO) {
         try {
             StandardResponse standardResponse = orderService.save(orderRequestDTO);
-            System.out.println(standardResponse);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
@@ -33,7 +32,6 @@ public class OrderController {
     public ResponseEntity<StandardResponse> getCustomer() {
         try {
             StandardResponse standardResponse = orderService.getAllOrders();
-            System.out.println(standardResponse);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,7 +45,6 @@ public class OrderController {
     public ResponseEntity<StandardResponse> getOrders(@PathVariable int orderId) {
         try {
             StandardResponse standardResponse = orderService.getOrderByOrderId(orderId);
-            System.out.println("standardResponse : " + standardResponse);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);

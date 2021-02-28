@@ -28,9 +28,7 @@ public class ItemServiceImpl implements ItemService {
                 itemDto.getQty(),
                 itemDto.getUnit_price()
         );
-        System.out.println("item : " + item);
         Item save = itemRepository.save(item);
-        System.out.println(save);
         if (save != null) {
             return new StandardResponse(200, Alerts.saveSuccess, save);
         } else {
@@ -41,7 +39,6 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public StandardResponse update(ItemRequestDTO itemDto, int itemId) {
         Optional<Item> byId = itemRepository.findById(itemId);
-        System.out.println("byId : " + byId);
         if (byId == null) {
             return new StandardResponse(201, Alerts.nosuchfound, null);
         }
@@ -51,9 +48,7 @@ public class ItemServiceImpl implements ItemService {
                 itemDto.getQty(),
                 itemDto.getUnit_price()
         );
-        System.out.println("item : " + item);
         Item update = itemRepository.save(item);
-        System.out.println(update);
         if (update != null) {
             return new StandardResponse(200, Alerts.updateSuccess, update);
         } else {
@@ -80,7 +75,6 @@ public class ItemServiceImpl implements ItemService {
     public StandardResponse getItemsByItemId(int itemId) {
         Optional<Item> allById = itemRepository.findById(itemId);
 
-        System.out.println(allById.isPresent());
         if (allById.isPresent()) {
             ItemResponseDTO itemResponseDTO = new ItemResponseDTO(
                     allById.get().getId(),
@@ -96,9 +90,6 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public StandardResponse deleteItem(int itemId) {
         Optional<Item> byId = itemRepository.findById(itemId);
-        System.out.println("byId : " + byId);
-        System.out.println("byId : " + byId.get());
-        System.out.println(byId.isPresent());
         if (!byId.isPresent()) {
             return new StandardResponse(201, Alerts.nosuchfound, null);
         } else {

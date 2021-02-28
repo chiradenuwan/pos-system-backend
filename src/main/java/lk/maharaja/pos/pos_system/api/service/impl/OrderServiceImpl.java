@@ -41,12 +41,9 @@ public class OrderServiceImpl implements OrderService {
                     orderRequestDTO.getTotalDiscount(),
                     orderRequestDTO.getCustomer()
             );
-            System.out.println("customer : " + orders);
             Orders save = orderRepository.save(orders);
-            System.out.println(save.getId());
             OrderData saveOrderData = new OrderData();
             for (OrderDataRequestDTO dto : orderRequestDTO.getItems()) {
-                System.out.println(dto);
                 OrderData orderData = new OrderData(
                         dto.getSub_total(),
                         dto.getUnit_price(),
@@ -66,7 +63,6 @@ public class OrderServiceImpl implements OrderService {
                 itemRepository.save(item);
 
             }
-            System.out.println(save);
             if (save != null) {
                 return new StandardResponse(200, Alerts.saveSuccess, saveOrderData);
             } else {
@@ -81,16 +77,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public StandardResponse getAllOrders() {
         List<Orders> all = (List<Orders>) orderRepository.findAll();
-        System.out.println("all Orders =======================> : " + all);
         ArrayList<OrderResponseDTO> orderResponseDTOS = new ArrayList<>();
         for (int i = 0; i < all.size(); i++) {
-            System.out.println("i : " + all.get(i));
             List<OrderDataReponseDTO> orderDataResponseDto = null;
             if (all.get(i).getOrderData().size() > 0) {
                 orderDataResponseDto = getOrderDataDetails(all.get(i).getOrderData());
             }
 
-            System.out.println("orderResponseDTO : " + orderDataResponseDto);
             orderResponseDTOS.add(new OrderResponseDTO(
                     all.get(i).getId(),
                     all.get(i).getDate(),
@@ -105,21 +98,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public StandardResponse getOrderByOrderId(int orderId) {
         Optional<Orders> allById = orderRepository.findById(orderId);
-        System.out.println("allByIdById : " + allById);
         ArrayList<OrderResponseDTO> orderResponseDTOS = new ArrayList<>();
 
-        System.out.println("i : " + allById);
 
 
-        System.out.println("allByIdById : " + allById);
-        System.out.println(allById.isPresent());
         if (allById.isPresent()) {
             List<OrderDataReponseDTO> orderDataReponse = null;
             if (allById.get().getOrderData().size() > 0) {
                 orderDataReponse = getOrderDataDetails(allById.get().getOrderData());
             }
 
-            System.out.println("orderResponseDTO : " + orderDataReponse);
             orderResponseDTOS.add(new OrderResponseDTO(
                     allById.get().getId(),
                     allById.get().getDate(),
@@ -136,11 +124,8 @@ public class OrderServiceImpl implements OrderService {
 
     private List<OrderDataReponseDTO> getOrderDataDetails(List<OrderData> orderData) {
         ArrayList<OrderDataReponseDTO> orderDataReponseDTOS = new ArrayList<>();
-        System.out.println("Order Data arry : " + orderData);
         for (int i = 0; i < orderData.size(); i++) {
-            System.out.println("Order data obj : " + orderData.get(i));
             ItemResponseDTO itemResponseDTO = getItemsInOrderData(orderData.get(i).getItem());
-            System.out.println("itemResponseDTO data obj : " + itemResponseDTO);
             OrderDataReponseDTO orderDataReponseDTO = new OrderDataReponseDTO(
                     orderData.get(i).getId(),
                     orderData.get(i).getSub_total(),
@@ -154,7 +139,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private ItemResponseDTO getItemsInOrderData(Item item) {
-        System.out.println("item ============> : " + item);
         return new ItemResponseDTO(
                 item.getId(),
                 item.getName(),

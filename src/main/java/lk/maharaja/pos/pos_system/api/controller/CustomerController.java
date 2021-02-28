@@ -22,7 +22,6 @@ public class CustomerController {
     public ResponseEntity<StandardResponse> save(@RequestBody CustomerRequestDTO customerRequestDTO) {
         try {
             StandardResponse standardResponse = customerService.save(customerRequestDTO);
-            System.out.println(standardResponse);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
@@ -35,7 +34,6 @@ public class CustomerController {
     public ResponseEntity<StandardResponse> save(@RequestBody CustomerRequestDTO customerRequestDTO, @PathVariable int customerId) {
         try {
             StandardResponse standardResponse = customerService.update(customerRequestDTO, customerId);
-            System.out.println(standardResponse);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
@@ -48,7 +46,6 @@ public class CustomerController {
     public ResponseEntity<StandardResponse> getCustomer() {
         try {
             StandardResponse standardResponse = customerService.getAllCustomers();
-            System.out.println(standardResponse);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +58,6 @@ public class CustomerController {
     public ResponseEntity<StandardResponse> getAllCustomerDetails() {
         try {
             StandardResponse standardResponse = customerService.getAllCustomerDetails();
-            System.out.println(standardResponse);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,7 +71,6 @@ public class CustomerController {
     public ResponseEntity<StandardResponse> getCustomer(@PathVariable int customerId) {
          try {
             StandardResponse standardResponse = customerService.getCustomerById(customerId);
-            System.out.println("standardResponse : "+standardResponse);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
@@ -88,7 +83,6 @@ public class CustomerController {
     public ResponseEntity<StandardResponse> deleteCustomer(@PathVariable int customerId) {
         try {
             StandardResponse standardResponse = customerService.deleteCustomer(customerId);
-            System.out.println(standardResponse);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);

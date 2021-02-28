@@ -22,9 +22,7 @@ public class ItemController {
     @PostMapping(value = "/save", consumes = {"application/json"})
     public ResponseEntity<StandardResponse> save(@RequestBody ItemRequestDTO itemDto) {
         try {
-            System.out.println("itemDto : "+itemDto);
             StandardResponse standardResponse = itemService.save(itemDto);
-            System.out.println(standardResponse);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
@@ -37,7 +35,6 @@ public class ItemController {
     public ResponseEntity<StandardResponse> update(@RequestBody ItemRequestDTO itemDto,@PathVariable int itemId) {
         try {
             StandardResponse standardResponse = itemService.update(itemDto,itemId);
-            System.out.println(standardResponse);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
@@ -48,10 +45,8 @@ public class ItemController {
     //Get All Items
     @GetMapping(value = "/getAll")
     public ResponseEntity<StandardResponse> getAllItems() {
-        System.out.println("call getall");
         try {
             StandardResponse standardResponse = itemService.getAllItems();
-            System.out.println(standardResponse);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
@@ -64,7 +59,6 @@ public class ItemController {
     public ResponseEntity<StandardResponse> getCustomer(@PathVariable int itemId) {
         try {
             StandardResponse standardResponse = itemService.getItemsByItemId(itemId);
-            System.out.println(standardResponse);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);
@@ -75,10 +69,8 @@ public class ItemController {
     //Delete Item By ItemId
     @DeleteMapping(value = "/deleteItem/{itemId}")
     public ResponseEntity<StandardResponse> deleteCustomer(@PathVariable int itemId) {
-        System.out.println(itemId);
         try {
             StandardResponse standardResponse = itemService.deleteItem(itemId);
-            System.out.println(standardResponse);
             return new ResponseEntity<StandardResponse>(standardResponse, HttpStatus.OK);
         } catch (Exception e) {
             StandardResponse standardResponse = new StandardResponse(500, "SERVER_ERROR", null);

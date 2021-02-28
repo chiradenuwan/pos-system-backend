@@ -58,7 +58,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         int user1 = userRepository.countUserByUsername(userDto.getUsername());
         if (user1 == 0) {
             User save = userRepository.save(user);
-            System.out.println(save);
             if (save != null) {
                 return new StandardResponse(200, Alerts.registerSuccess, save);
             } else {
